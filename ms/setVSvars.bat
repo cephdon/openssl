@@ -3,7 +3,7 @@ call:set_%1
 exit /b
 :set_universal10.0Win32
 	call:setVar _VS14VC VisualStudio14VC
-	call "%_VS14VC%vcvarsall" x86
+	call "%_VS14VC%vcvarsall" x86 store
 	set _VCPlatform=x86
 	set _VCLibPlat=
 	call:setEnv
@@ -11,7 +11,7 @@ exit /b
 
 :set_universal10.0x64
 	call:setVar _VS14VC VisualStudio14VC
-	call "%_VS14VC%vcvarsall" x64
+	call "%_VS14VC%vcvarsall" x64 store
 	set _VCPlatform=x64
 	set _VCLibPlat=amd64
 	call:setEnv
@@ -19,7 +19,7 @@ exit /b
 
 :set_universal10.0arm
 	call:setVar _VS14VC VisualStudio14VC
-	call "%_VS14VC%vcvarsall" x86_arm
+	call "%_VS14VC%vcvarsall" x86_arm store
 	set _VCPlatform=ARM
 	set _VCLibPlat=ARM
 	call:setEnv
@@ -27,7 +27,7 @@ exit /b
 
 :set_universal10.0arm64
 	call:setVar _VS14VC VisualStudio14VC
-	call "%_VS14VC%vcvarsall" x86_arm64
+	call "%_VS14VC%vcvarsall" x86_arm64 store
 	set _VCPlatform=ARM64
 	set _VCLibPlat=ARM64
 	call:setEnv
@@ -178,11 +178,8 @@ exit /b
 :setEnv
 	call:setVar _VS14VC VisualStudio14VC
 	call:setVar _WKITS10 WindowsKits10.0
-	call:setVar _WKITS10VER WindowsKits10Version
-	set PATH=%_VS14VC\Bin%;%PATH%
-	set INCLUDE=%_VS14VC%\include;%_WKITS10%\Include\%_WKITS10VER%\um;%_WKITS10%\Include\%_WKITS10VER%\shared;%_WKITS10%\Include\%_WKITS10VER%\winrt;%_WKITS10%\Include\%_WKITS10VER%\ucrt;
-	set LIB=%_VS14VC%\lib\store\%_VCLibPlat%;%_WKITS10%\lib\%_WKITS10VER%\um\%_VCPlatform%;%_WKITS10%\Lib\%_WKITS10VER%\ucrt\%_VCPlatform%;
-	set LIBPATH=%_WKITS10%\UnionMetadata\Facade;%_VS14VC%\vcpackages;;%_WKITS10%\references\windows.foundation.foundationcontract\1.0.0.0\;;%_WKITS10%\references\windows.foundation.universalapicontract\1.0.0.0\
+	set PATH=%_VS14VCBin%;%PATH%
+	set "LIBPATH=%_WKITS10%UnionMetadata\Facade;%_VS14VC%vcpackages;%_WKITS10%references\windows.foundation.foundationcontract\1.0.0.0\;%_WKITS10%references\windows.foundation.universalapicontract\1.0.0.0\"
 	goto :eof
 
 :end
